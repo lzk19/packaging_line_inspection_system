@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qingge.springboot.mapper.OrdinaryPlateMapper">
+
+    <insert id="addTierRecord">
+        INSERT INTO sys_tier(name, date, shift, line, t1q1answer, t1q2answer, t1q3answer, t1q4answer, t2q1answer,
+                         t2q2answer, t2q3answer, t2q4answer)
+        SELECT name, date, shift, line,
+               #{t1q1answer},
+               #{t1q2answer},
+               #{t1q3answer},
+               #{t1q4answer},
+               #{t2q1answer},
+               #{t2q2answer},
+               #{t2q3answer},
+               #{t2q4answer}
+        FROM sys_headerdata
+        order by id desc limit 1
+    </insert>
+
+    <select id="getTierRecord" resultType="com.qingge.springboot.entity.Tier">
+        SELECT *
+        FROM sys_tier
+        order by id desc limit 1
+    </select>
+
+    <!--    修改Tier记录信息-->
+    <update id="updateTierRecord">
+        UPDATE sys_tier
+        SET t1q1answer = #{t1q1answer},
+            t1q2answer = #{t1q2answer},
+            t1q3answer = #{t1q3answer},
+            t1q4answer = #{t1q4answer},
+            t2q1answer = #{t2q1answer},
+            t2q2answer = #{t2q2answer},
+            t2q3answer = #{t2q3answer},
+            t2q4answer = #{t2q4answer} order by id desc limit 1
+    </update>
+
+    <!--    查询所有Tier记录信息(包括头信息)-->
+    <select id="getTierRecordList" resultType="com.qingge.springboot.entity.Tier">
+        SELECT *
+        FROM sys_tier
+    </select>
+
+    <!--    添加Inspect记录信息-->
+    <insert id="addInspectRecord">
+        INSERT INTO sys_inspect(name, date, shift, line, sfq1answer, sfq2answer, sfq3answer, qlq1answer, qlq2answer,
+                            qlq3answer, qlq4answer, qlq5answer, qlq6answer)
+        SELECT name, date, shift, line,
+               #{sfq1answer},
+               #{sfq2answer},
+               #{sfq3answer},
+               #{qlq1answer},
+               #{qlq2answer},
+               #{qlq3answer},
+               #{qlq4answer},
+               #{qlq5answer},
+               #{qlq6answer}
+        FROM sys_headerdata
+        order by id desc limit 1
+    </insert>
+
+    <!--    查询Inspect记录信息-->
+    <select id="getInspectRecord" resultType="com.qingge.springboot.entity.Inspect">
+        SELECT *
+        FROM sys_inspect
+        order by id desc limit 1
+    </select>
+
+    <!--    修改Inspect记录信息-->
+    <update id="updateInspectRecord">
+        UPDATE sys_inspect
+        SET sfq1answer = #{sfq1answer},
+            sfq2answer = #{sfq2answer},
+            sfq3answer = #{sfq3answer},
+            qlq1answer = #{qlq1answer},
+            qlq2answer = #{qlq2answer},
+            qlq3answer = #{qlq3answer},
+            qlq4answer = #{qlq4answer},
+            qlq5answer = #{qlq5answer},
+            qlq6answer = #{qlq6answer} order by id desc limit 1
+    </update>
+
+    <!--    查询所有Inspect记录信息(包括头信息)-->
+    <select id="getInspectRecordList" resultType="com.qingge.springboot.entity.Inspect">
+        SELECT *
+        FROM sys_inspect
+    </select>
+
+    <!--    添加效率评价信息-->
+    <insert id="addEfficiencyRecord">
+        INSERT INTO sys_efficiency(name, date, shift, line, effiq1answer, effiq2answer, effiq3answer, effiq4answer)
+        SELECT name, date, shift, line, #{effiq1answer}, #{effiq2answer}, #{effiq3answer}, #{effiq4answer}
+        FROM sys_headerdata
+        order by id desc limit 1
+    </insert>
+
+    <!--    查询效率评价信息-->
+    <select id="getEfficiencyRecord" resultType="com.qingge.springboot.entity.Efficiency">
+        SELECT *
+        FROM sys_efficiency
+        order by id desc limit 1
+    </select>
+
+    <!--    修改效率评价记录信息-->
+    <update id="updateEfficiencyRecord">
+        UPDATE sys_efficiency
+        SET effiq1answer = #{effiq1answer},
+            effiq2answer = #{effiq2answer},
+            effiq3answer = #{effiq3answer},
+            effiq4answer = #{effiq4answer} order by id desc limit 1
+    </update>
+
+    <!--    查询所有效率评价记录信息(包括头信息)-->
+    <select id="getEfficiencyRecordList" resultType="com.qingge.springboot.entity.Efficiency">
+        SELECT *
+        FROM sys_efficiency
+    </select>
+
+    <!--    添加指导抽查记录信息-->
+    <insert id="addGuidanceRecord">
+        INSERT INTO sys_guidance(name, date, shift, line, gdq1answer, gdq2answer, gdq3answer)
+        SELECT name, date, shift, line,
+               #{gdq1answer},
+               #{gdq2answer},
+               #{gdq3answer}
+        FROM sys_headerdata
+        order by id desc limit 1
+    </insert>
+
+    <!--    查询指导抽查记录信息-->
+    <select id="getGuidanceRecord" resultType="com.qingge.springboot.entity.Guidance">
+        SELECT *
+        FROM sys_guidance
+        order by id desc limit 1
+    </select>
+
+    <!--    修改指导抽查记录信息--> <!--相当于重新插入信息 这样可以导出查看修改记录的痕迹 -->
+    <insert id="updateGuidanceRecord">
+        INSERT INTO sys_guidance(name, date, shift, line, gdq1answer, gdq2answer, gdq3answer)
+        SELECT name, date, shift, line,
+               #{gdq1answer},
+               #{gdq2answer},
+               #{gdq3answer}
+        FROM sys_headerdata
+        order by id desc limit 1
+    </insert>
+
+    <!--    查询所有指导抽查记录信息(包括头信息)-->
+    <select id="getGuidanceRecordList" resultType="com.qingge.springboot.entity.Guidance">
+        SELECT *
+        FROM sys_guidance
+    </select>
+
+    <!--    添加交接内容-->
+    <insert id="addHandoverRecord">
+        INSERT INTO sys_handover(name, date, shift, line, common, special)
+        SELECT name, date, shift, line, #{common}, #{special}
+        FROM sys_headerdata
+        order by id desc limit 1
+    </insert>
+
+    <!--    查询交接内容-->
+    <select id="getHandoverRecord" resultType="com.qingge.springboot.entity.Handover">
+        SELECT *
+        FROM sys_handover
+        order by id desc limit 1
+    </select>
+
+    <!--    修改交接内容-->
+    <update id="updateHandoverRecord">
+        UPDATE sys_handover
+        SET common  = #{common},
+            special = #{special}
+    </update>
+
+    <select id="getEfficiencyRecordDate" resultType="java.lang.String">
+        SELECT date
+        from sys_efficiency
+    </select>
+
+    <select id="getEfficiencyRecord4" resultType="java.lang.String">
+        SELECT effiq4answer
+        from sys_efficiency
+    </select>
+
+
+
+</mapper>

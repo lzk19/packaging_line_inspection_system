@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qingge.springboot.mapper.ProblemMapper">
+
+    <select id="getTier1Problem" resultType="com.qingge.springboot.entity.Problem">
+        SELECT * FROM sys_problem WHERE id in('1','2','3','4')
+    </select>
+    <select id="getTier2Problem" resultType="com.qingge.springboot.entity.Problem">
+        SELECT * FROM sys_problem WHERE id in('5','6','7','8')
+    </select>
+    <select id="getInspect1Problem" resultType="com.qingge.springboot.entity.Problem">
+        SELECT * FROM sys_problem WHERE id in('9','10','11')
+    </select>
+    <select id="getInspect2Problem" resultType="com.qingge.springboot.entity.Problem">
+        SELECT * FROM sys_problem WHERE id in('12','13','14','15','16','17')
+    </select>
+    <select id="getEffiProblem" resultType="com.qingge.springboot.entity.Problem">
+        SELECT * FROM sys_problem WHERE id in('18','19','20','21')
+    </select>
+    <select id="getGuiProblem" resultType="com.qingge.springboot.entity.Problem">
+        SELECT * FROM sys_problem WHERE id in('22','23','24')
+    </select>
+
+</mapper>

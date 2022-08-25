@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qingge.springboot.mapper.EventMapper">
+
+
+    <insert id="addEvent">
+        INSERT INTO sys_event
+            (line, date, machineName, eventName, isCloseEvent)
+            VALUE
+            (#{line},#{date},#{machineName},#{eventName},'0')
+    </insert>
+
+        <insert id="addUrl">
+            INSERT INTO event url VALUE #{url}
+        </insert>
+
+    <!--    查询数据库event表所有数据-->
+    <select id="getAllEvent" resultType="com.qingge.springboot.entity.Event">
+        SELECT * FROM sys_event
+        <if test="eventName !=null ">
+            WHERE eventName like #{eventName} AND isCloseEvent ='0'
+        </if>
+        LIMIT #{pageStart},#{pageSize}
+    </select>
+
+    <!--    查询数据库event表数据总数-->
+    <select id="getEventCounts" resultType="java.lang.Integer">
+        SELECT count(*) FROM `sys_event`
+        <if test="eventName !=null ">
+            WHERE eventName like #{eventName} AND isCloseEvent ='0'
+        </if>
+    </select>
+
+    <!--    根据ID查询需要修改的用户的信息-->
+    <select id="getUpdateEvent" resultType="com.qingge.springboot.entity.Event">
+        SELECT *
+        FROM sys_event
+        WHERE id = #{id}
+    </select>
+
+    <!--    修改用户信息-->
+    <update id="updateEvent">
+        UPDATE sys_event
+        SET eventType     = #{eventType},
+            describe1     = #{describe1},
+            happenPlace   = #{happenPlace},
+            reason        = #{reason},
+            problemDefect = #{problemDefect},
+            actions       = #{actions},
+            tracks        = #{tracks},
+            url           =#{url},
+            fileName      = #{fileName}
+        WHERE id = #{id}
+    </update>
+
+
+    <update id="deleteEvent">
+        UPDATE sys_event
+        SET isCloseEvent = '1'
+        WHERE id = #{id}
+    </update>
+
+</mapper>
